@@ -1,8 +1,8 @@
-import { FC, useEffect } from "react";
-import { ConversationList } from "./conversationList";
-import { useQuery } from "@apollo/client";
-import { operations } from "@GraphQL";
-import { ConversationCreatedSubscriptionData, ConversationData } from "@types";
+import { FC, useEffect } from 'react'
+import { ConversationList } from './conversationList'
+import { useQuery } from '@apollo/client'
+import { operations } from '@GraphQL'
+import { ConversationCreatedSubscriptionData, ConversationData } from '@types'
 // import { useSubsConversationDelete, useAddAndRemoveUser } from "@hooks";
 
 export const ConversationWrapper: FC = () => {
@@ -11,7 +11,9 @@ export const ConversationWrapper: FC = () => {
     data: conversationsData,
     loading: conversationsLoading,
     subscribeToMore,
-  } = useQuery<ConversationData | null>(operations.conversation.Queries.conversations);
+  } = useQuery<ConversationData | null>(
+    operations.conversation.Queries.conversations
+  )
   ////////////////////////////////////////////////////////////////////////////////////
   //subscription add user and remove user
   // useAddAndRemoveUser();
@@ -22,7 +24,7 @@ export const ConversationWrapper: FC = () => {
   // useEffect(() => {
   //   subscribeToMore({
   //     document: operations.conversation.Subscriptions.created,
-  //     updateQuery: (prev, { subscriptionData }: ConversationCreatedSubscriptionData) => {
+  // updateQuery: (prev, { subscriptionData }: ConversationCreatedSubscriptionData) => {
   //       if (!subscriptionData.data) return prev;
   //       const newConversation = subscriptionData.data.conversationCreated;
   //       return Object.assign({}, prev, {
@@ -33,11 +35,11 @@ export const ConversationWrapper: FC = () => {
   // }, []);
   //////////////////////////////////////////////////////////////////////////////
   return (
-    <div className=" bg-zinc-800 w-full max-w-xs  min-w-[16rem]">
+    <div className=' bg-zinc-800 w-full max-w-xs  min-w-[16rem]'>
       <ConversationList
         conversations={conversationsData?.conversations || []}
         conversationsLoading={conversationsLoading}
       />
     </div>
-  );
-};
+  )
+}

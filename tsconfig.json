@@ -16,19 +16,19 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    "baseUrl": "./",
-    "paths": {
-      "@lib": ["./src/lib"],
-      "@components": ["./src/components"],
-      "@utils": ["./src/utils"],
-      "@assets": ["./src/assets"],
-      "@context": ["./src/context"],
-      "@styles": ["./src/styles"],
-      "@GraphQL": ["./src/GraphQL"],
-      "@hooks": ["./src/hooks"],
-      "@types": ["./src/types"],
-      "@svgs": ["./src/assets/svg"]
-    }
+  //   "baseUrl": "./",
+  //   "paths": {
+  //     "@lib": ["./src/lib"],
+  //     "@components": ["./src/components"],
+  //     "@utils": ["./src/utils"],
+  //     "@assets": ["./src/assets"],
+  //     "@context": ["./src/context"],
+  //     "@styles": ["./src/styles"],
+  //     "@GraphQL": ["./src/GraphQL"],
+  //     "@hooks": ["./src/hooks"],
+  //     "@types": ["./src/types"],
+  //     "@svgs": ["./src/assets/svg"]
+  //   }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
