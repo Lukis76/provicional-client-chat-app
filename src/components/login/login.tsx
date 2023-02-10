@@ -1,43 +1,64 @@
-import { useForm } from '@hooks'
-
-enum FORM {
-  LOGIN = 'LOGIN',
-  REGISTER = 'REGISTER',
-}
+import { useAuthorization, useForm } from '@hooks/index'
+import { SvgLoading } from '@assets/svg/index'
+import { Link, Navigate } from 'react-router-dom'
+import css from '@styles/signIn_signUp/form.module.css'
+import Loading from '@components/utils/loading'
 
 export const Login = () => {
-  const { handleChange, handleSubmit, values, errors, loading } = useForm(
-    FORM.LOGIN,
-    {
-      email: '',
-      password: '',
-    }
-  )
-
-  if (typeof window !== 'undefined') {
-    if (localStorage.getItem('token')) {
-    }
-  }
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    errorValues,
+    loading,
+  } = useForm('LOGIN', {
+    email: null,
+    password: null,
+  })
+  const { check } = useAuthorization()
 
   return (
-    <div className='bg-zinc-800 flex flex-col justify-center items-center min-h-screen w-full gap-4'>
-      <h3>Login</h3>
-      <form
-        className='flex flex-col gap-6 border-white border-2 p-8 rounded-2xl'
-        onSubmit={handleSubmit}
-      >
-        <input name='email' onChange={handleChange} />
-        <input name='password' onChange={handleChange} />
-        <button
-          type='submit'
-          className='text-center py-1 px-6 rounded-lg bg-blue-500 hover:opacity-30'
-        >
-          Login
-        </button>
-        {errors.map((err, index) => {
-          return <span key={index + 1}>{err.message}</span>
-        })}
-      </form>
+    <div className={`container ${css.container}`}>
+      {check === true ? (
+        <Navigate to={'/chat'} />
+      ) : check === undefined || loading ? (
+        <Loading />
+      ) : (
+        <section className={`${css.form_container}`}>
+          <h3>Login</h3>
+          <form className={`${css.form}`} onSubmit={handleSubmit}>
+            <label className={`${css.label_email}`}>
+              <input name='email' onChange={handleChange} placeholder='Email' />
+              <em className={`${css.name}`}>Email</em>
+            </label>
+            <label className={`${css.label_password}`}>
+              <input
+                name='password'
+                onChange={handleChange}
+                placeholder='Password'
+              />
+              <em className={`${css.name}`}>Password</em>
+            </label>
+            <button
+              type='submit'
+              className='text-center py-1 px-6 rounded-lg bg-blue-500 hover:opacity-30'
+              disabled={
+                (errorValues.email && errorValues.password) !== 'success'
+              }
+            >
+              SignIn
+            </button>
+            {errors.map((err, index) => {
+              return <span key={index + 1}>{err.message}</span>
+            })}
+          </form>
+          <span>
+            todavia no estas registrado - <Link to={'/register'}>SignUp</Link>
+          </span>
+        </section>
+      )}
     </div>
   )
 }

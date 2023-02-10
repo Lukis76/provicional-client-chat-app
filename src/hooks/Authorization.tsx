@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 
 //////////////////////////////////////////////////
 const OPERATION_REFRESH = gql`
-  query Refresh {
-    refresh {
+  query Refresh($token: String) {
+    refresh(token: $token) {
       timeOut
     }
   }
@@ -13,13 +13,15 @@ const OPERATION_REFRESH = gql`
 export const useAuthorization = (initial = undefined) => {
   const [check, setCheck] = useState<boolean | undefined>(initial)
 
-  const { data } = useQuery(OPERATION_REFRESH, {
+  useQuery(OPERATION_REFRESH, {
+    onCompleted(data) {
+      setCheck(data?.refresh?.timeOut)
+    },
     fetchPolicy: 'no-cache',
+    variables: {
+      token: localStorage.getItem('token'),
+    },
   })
-
-  useEffect(() => {
-    setCheck(data?.refresh?.timeOut)
-  }, [data])
 
   return {
     check,

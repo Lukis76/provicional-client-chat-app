@@ -44,6 +44,7 @@ export const AuthUserProvider: FC<AuthUserProviderProps> = ({ children }) => {
   }
   //---------------------------------
   const logOut = () => {
+    localStorage.clear()
     // localStorage.removeItem('user')
     // localStorage.removeItem('token')
 

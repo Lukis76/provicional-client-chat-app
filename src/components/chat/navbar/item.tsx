@@ -1,12 +1,11 @@
 import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
-import { ConversationFE, User } from 'types'
-import Image from 'next/image'
-import { formatUsersName } from '@utils/helpFunctions'
+import { ConversationFE, User } from '@types'
+// import { formatUsersName } from '@utils/helpFunct'
 import ReactTimeAgo from 'react-time-ago'
-import { useRouter } from 'next/router'
-import { useViewConversation } from 'hook'
-import { ContextMenu } from '@components/chat/navbar/modal/contextMenu'
-import { authUserContext } from '@context/authUserContext'
+import { useViewConversation } from '@hooks/index'
+// import { ContextMenu } from '@components/chat/navbar/modal/contextMenu'
+import { authUserContext } from '@context/index'
+import { useParams } from 'react-router-dom'
 
 interface ConversationItemProps {
   conversation: ConversationFE
@@ -20,9 +19,9 @@ export const ConversationItem: FC<ConversationItemProps> = ({
   setIsOpen,
 }) => {
   //--------------------------------------------------------------------
-  const user = useContext(authUserContext).user as User | null
-  const router = useRouter()
-  const conversationId = router?.query?.conversationId as string
+  const { user } = useContext(authUserContext)
+  const { conversationId } = useParams()
+  // const conversationId = router?.query?.conversationId as string
   const [contextMenu, setContextMenu] = useState<boolean>(false)
   const customImg = ''
   const { onViewConversation } = useViewConversation()
@@ -33,7 +32,7 @@ export const ConversationItem: FC<ConversationItemProps> = ({
         ?.hasSeenLatestMsg
     )
   }
-  //------------------------------------------------------------------------------
+  // //------------------------------------------------------------------------------
   const handleClick = (e: React.MouseEvent) => {
     if (e.type === 'click') {
       onViewConversation(
@@ -58,7 +57,7 @@ export const ConversationItem: FC<ConversationItemProps> = ({
       }}
       onContextMenu={handleClick}
     >
-      {contextMenu && (
+      {/* {contextMenu && (
         <ContextMenu
           close={setContextMenu}
           conversationId={conversation.id}
@@ -66,28 +65,27 @@ export const ConversationItem: FC<ConversationItemProps> = ({
           conversation={conversation}
           setIsOpen={setIsOpen}
         />
-      )}
-      <Image
+      )} */}
+      <img
         src={
           customImg ||
           'https://thumbs.dreamstime.com/b/conceptual-hand-writing-showing-breakout-session-business-photo-showcasing-workshop-discussion-presentation-specific-topic-125699196.jpg'
         }
         width={60}
         height={60}
-        quality={20}
         alt={'imagen de la session'}
         className='rounded-full '
       />
       <div className='flex flex-col justify-center items-center w-full'>
         <div className='flex flex-row justify-between items-center w-full'>
           <p className='text-sm truncate'>
-            {formatUsersName(conversation.participants, user?.id)}
+            {/* {formatUsersName(conversation.participants, user?.id)} */}
           </p>
           <span className='text-xs'>
-            <ReactTimeAgo
+            {/* <ReactTimeAgo
               date={Number(new Date(conversation.updatedAt))}
               timeStyle={'twitter'}
-            />
+            /> */}
           </span>
         </div>
         <div className=' flex flex-row justify-between items-center w-full'>

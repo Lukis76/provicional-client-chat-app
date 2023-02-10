@@ -2,39 +2,38 @@ import { ChangeEvent, FormEvent, useState, useContext } from 'react'
 import { GraphQLErrors } from '@apollo/client/errors'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
-import { authUserContext } from '@context'
-import { operations } from '@GraphQL'
+import { authUserContext } from '@context/index'
+import { operations } from '@GraphQL/index'
+import useValidator from './useValidator'
 
-enum FORM {
-  LOGIN = 'LOGIN',
-  REGISTER = 'REGISTER',
+type LOGIN = 'LOGIN'
+type REGISTER = 'REGISTER'
+
+type initialStateForm = {
+  username?: string | null
+  email: string | null
+  password: string | null
+  confirmPassword?: string | null
 }
 
-type initialSatteForm = {
-  username?: string
-  email: string
-  password: string
-  confirmPassword?: string
-}
-
-export const useForm = (typeForm: string, initialState: initialSatteForm) => {
+export const useForm = (
+  typeForm: LOGIN | REGISTER,
+  initialState: initialStateForm
+) => {
   const navigate = useNavigate()
-  const [values, setValues] = useState(initialState)
   const [errors, setErrors] = useState<GraphQLErrors>([])
   const { login } = useContext(authUserContext)
+  //------------------------------------------------------------
+  const { handleChange, handleBlur, errorValues, values } =
+    useValidator(initialState)
+  //------------------------------------------------------------
 
   //////////////>>>>>> LOGIN <<<<<</////////////////
   const [loginUser, { loading: LoginLoading }] = useMutation(
     operations.user.mutation.LOGIN_USER,
     {
       async update(_, { data: { loginUser: userData } }) {
-        console.log("🚀 ~ file: useForm.tsx:31 ~ update ~ userData", userData)
-        
         login(userData)
-      },
-      onCompleted() {
-        console.log('on compplete >>>>>>>>', localStorage.getItem('user'))
-        navigate('/')
       },
       onError({ graphQLErrors }) {
         setErrors(graphQLErrors)
@@ -55,38 +54,35 @@ export const useForm = (typeForm: string, initialState: initialSatteForm) => {
       variables: { registerInput: values },
     }
   )
+
   ///////////////////////////////////////////////////////
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name !== 'confirmPassword') {
-      setValues({ ...values, [e.target.name]: e.target.value })
-    }
-  }
-  
   const handleSubmit = async (e: FormEvent<HTMLElement>) => {
     e.preventDefault()
-    if (typeForm === FORM.LOGIN) {
-      console.log("🚀 ~ file: useForm.tsx:60 ~ handleChange ~ values", values)
-      
+    if (typeForm === 'LOGIN') {
+      console.log('🚀 ~ file: useForm.tsx:60 ~ handleChange ~ values', values)
+
       await loginUser()
-      navigate('/login')
+      navigate('/chat')
     }
-    if (typeForm === FORM.REGISTER) {
+    if (typeForm === 'REGISTER') {
       await registerUser()
     }
   }
 
   const select = () => {
-    if (typeForm === FORM.LOGIN) {
+    if (typeForm === 'LOGIN') {
       return LoginLoading
     }
-    if (typeForm === FORM.REGISTER) {
+    if (typeForm === 'REGISTER') {
       return RegisterLoading
     }
   }
 
   return {
     handleChange,
+    handleBlur,
+    errorValues,
     handleSubmit,
     values,
     errors,

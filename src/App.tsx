@@ -1,8 +1,17 @@
 import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+  Navigate,
+  Link,
+} from 'react-router-dom'
 import { Chat } from './components/chat/chat'
 import { Login } from './components/login/login'
 import { Register } from './components/register/register'
+import { SvgLoading } from '@assets/svg'
+import Loading from '@components/utils/loading'
 
 // const router = createBrowserRouter([
 //   {
@@ -35,8 +44,41 @@ import { Register } from './components/register/register'
 // ])
 
 function App() {
-  return <h1>hola</h1>
-  // return <RouterProvider router={router} />
+  return (
+    <>
+      <Routes>
+        <Route path='/' element={<Login />} />
+
+        <Route path='chat' element={<Chat />}>
+          <Route path=':conversationId' element={<h1>conversation id</h1>} />
+          {/* <Route path='/:conversationId' element={<h1>Lukitras intern</h1>} /> */}
+        </Route>
+
+        <Route path='/login' element={<Login />} />
+
+        <Route path='/register' element={<Register />} />
+        <Route
+          path='/lucas'
+          element={
+            <>
+              <h1>soy lucas</h1> <Navigate to={'/login'}></Navigate>
+            </>
+          }
+        />
+
+        <Route
+          path='*'
+          element={
+            <h1>
+              ^ <br />
+              ^^^ <br /> || <br /> || <br />
+              <br /> la ruta no es valuda por favor revice la url
+            </h1>
+          }
+        />
+      </Routes>
+    </>
+  )
 }
 
 export default App
