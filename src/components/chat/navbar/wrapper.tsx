@@ -74,7 +74,7 @@ const navigate = useNavigate()
       {/* <h1>{userId}</h1> */}
       lucas
       <ConversationList
-        conversations={data?.conversations}
+        conversations={data?.conversations || []}
         conversationsLoading={conversationsLoading}
       />
       <button onClick={() => {

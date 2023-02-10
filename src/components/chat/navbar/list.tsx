@@ -1,13 +1,13 @@
 import { FC, useContext, useEffect, useState } from 'react'
 import { ConversationFE } from '@types'
 import { ConversationItem } from './item'
-// import { SkeletonConversationList } from '../skeleton'
-// import { ConversationModal } from './modal/conversationModal'
+import { SkeletonConversationList } from '../skeleton'
+import { ConversationModal } from './modal/conversationModal'
 import { authUserContext } from '@context/index'
 import { useNavigate } from 'react-router-dom'
 //////////////////////////////////////////////////////////////
 interface ConversationListProps {
-  conversations: Array<ConversationFE> | undefined
+  conversations: Array<ConversationFE> 
   conversationsLoading: boolean
 }
 //////////////////////////////////////////////////////////////
@@ -48,18 +48,17 @@ export const ConversationList: FC<ConversationListProps> = ({
             find or start conversation
           </button>
         </div>
-        {/* {isOpen && (
+        {isOpen && (
           <ConversationModal
             conversations={conversations}
             close={setIsOpen}
             editingConversation={editingConversation}
           />
-        )} */}
+        )}
 
         <div className='flex flex-col justify-start items-center w-full h-full gap-2  overflow-hidden ove'>
           {conversationsLoading ? (
-            <></>
-            // <SkeletonConversationList cont={14} />
+            <SkeletonConversationList cont={14} />
           ) 
           : (
             conversations?.map((c) => (

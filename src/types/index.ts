@@ -21,6 +21,12 @@ export type TypeContextMenu = {
 }
 
 //------------------------------------------
+
+export type TypeState = {
+  username: string
+  participants: Array<SearchUser>
+  existConversation: ConversationFE | null
+}
 // export interface AuthProps {
 //   data: Session | null
 // }
