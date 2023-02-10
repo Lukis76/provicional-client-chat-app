@@ -1,7 +1,7 @@
-// import { Profile } from "@components/perfil";
+import { Profile } from "@components/perfil";
 import type { FC } from 'react'
 import { Wrapper } from './navbar/wrapper'
-// import { FeedWrapper } from './feed/feedWrapper'
+import { FeedWrapper } from './conversation/feedWrapper'
 import { useAuthorization } from '@hooks/index'
 import { Navigate, Outlet } from 'react-router-dom'
 import Loading from '@components/utils/loading'
@@ -20,8 +20,8 @@ export const Chat: FC = () => {
         <div className='flex w-full h-screen  overflow-hidden'>
           {/* <ModalProvider> */}
           <Wrapper />
-          {/* <FeedWrapper/> */}
-          {/* <Profile /> */}
+          <FeedWrapper/>
+          <Profile />
           {/* </ModalProvider> */}
           <Outlet />
         </div>

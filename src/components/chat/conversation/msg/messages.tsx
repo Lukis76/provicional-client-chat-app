@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { SkeletonMsgsList } from "@components/chat/skeleton";
-import { authUserContext } from "@context/authUserContext";
-import { operations } from "graphQL/operations";
+import { authUserContext } from "@context/index";
+import { operations } from "@GraphQL/index";
 import { FC, useContext, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { MsgsData, MsgsVar, MsgSubscriptionData, User } from "types";
+import { MsgsData, MsgsVar, MsgSubscriptionData, User } from "@types";
 import { MessageItem } from "./messageItem";
 
 interface MessagesProps {

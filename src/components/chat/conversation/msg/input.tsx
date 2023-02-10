@@ -1,10 +1,10 @@
 import { useMutation } from "@apollo/client";
-import { operations } from "graphQL/operations";
+import { operations } from "@GraphQL/index";
 import { FC, FormEvent, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import ObjectID from "bson-objectid";
-import { SendMsgVar, MsgsData, MsgsVar, User } from "types";
-import { authUserContext } from "@context/authUserContext";
+import { SendMsgVar, MsgsData, MsgsVar, User } from "@types";
+import { authUserContext } from "@context/index";
 
 interface InputProps {
   conversationId: string;

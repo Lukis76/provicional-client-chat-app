@@ -4,13 +4,15 @@ import { setContext } from '@apollo/client/link/context'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 //////////////////////////////////////////////////////////////////
-const getStorage = () => {console.log('apolo client 🥇 👍 💯 👎')
-  return (() => typeof window !== 'undefined' ? localStorage.getItem('token') : null )()
+const getStorage = () => {
+  console.log('apolo client 🥇 👍 💯 👎')
+  return (() =>
+    typeof window !== 'undefined' ? localStorage.getItem('token') : null)()
 }
 
 /////////////////////////////////////////////////////////////////
 const httpLink = new HttpLink({
-  uri: import.meta.env.VITE_GRAPHQL_URI as string,
+  uri: import.meta.env.VITE_GRAPHQL_URI || 'http://localhost:4000/graphql',
   headers: {
     authorization: `Bearer: ${getStorage() || ''}`,
   },
@@ -19,6 +21,7 @@ const httpLink = new HttpLink({
 //////////////////////////////////////////////////
 const authLink = setContext((_, { headers }) => {
   return {
+    ...headers,
     authorization: `Bearer ${getStorage() || ''}`,
   }
 })
@@ -27,7 +30,9 @@ const wsLink =
   typeof window !== 'undefined'
     ? new GraphQLWsLink(
         createClient({
-          url: import.meta.env.GRAPHQL_URI_SUB as string,
+          url:
+            import.meta.env.GRAPHQL_URI_SUB ||
+            'ws://localhost:4000/graphql/subscriptions',
           connectionParams: { authToken: getStorage() || null },
         })
       )

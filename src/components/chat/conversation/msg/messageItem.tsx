@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import ReactTimeAgo from 'react-time-ago'
-import { MsgFE } from 'types'
+import { MsgFE } from '@types'
 
 interface MessageItemProps {
   msg: MsgFE
@@ -15,11 +15,11 @@ export const MessageItem: FC<MessageItemProps> = ({ msg, sendByMe }) => {
           <span className='flex flex-row justify-start items-center self-end gap-1 text-zinc-200 font-medium'>
             {msg?.sender?.username}
             <span className='text-xs text-zinc-100'>{'-'}</span>
-            <ReactTimeAgo
+            {/* <ReactTimeAgo
               date={Number(new Date(msg.createdAt))}
               timeStyle={'twitter'}
               className='text-xs text-zinc-300'
-            />
+            /> */}
           </span>
           <span className='flex self-end px-4 py-0.5 rounded-md bg-blue-500 text-zinc-900'>{msg?.body}</span>
         </div>
@@ -28,11 +28,11 @@ export const MessageItem: FC<MessageItemProps> = ({ msg, sendByMe }) => {
           <span className='flex flex-row justify-start items-center self-start gap-1 text-zinc-200 font-medium'>
             {msg?.sender?.username}
             <span className='text-xs text-zinc-100'>{'-'}</span>
-            <ReactTimeAgo
+            {/* <ReactTimeAgo
               date={Number(new Date(msg.createdAt))}
               timeStyle={'twitter'}
               className='text-xs text-zinc-300'
-            />
+            /> */}
           </span>
           <span className='flex self-start  px-4 py-0.5 rounded-md  bg-zinc-600 text-zinc-100'>{msg?.body}</span>
         </div>

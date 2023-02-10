@@ -61,7 +61,7 @@ export const ConversationList: FC<ConversationListProps> = ({
             <SkeletonConversationList cont={14} />
           ) 
           : (
-            conversations?.map((c) => (
+            order?.map((c) => (
               <ConversationItem
                 key={c.id}
                 conversation={c}
