@@ -48,6 +48,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Login />} />
+        
 
         <Route path='chat' element={<Chat />}>
           <Route path=':conversationId' element={<h1>conversation id</h1>} />
@@ -55,6 +56,7 @@ function App() {
         </Route>
 
         <Route path='/login' element={<Login />} />
+
 
         <Route path='/register' element={<Register />} />
         <Route
