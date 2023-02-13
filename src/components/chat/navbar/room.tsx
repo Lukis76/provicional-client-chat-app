@@ -3,7 +3,7 @@ import { ConversationFE, User } from '@types'
 // import { formatUsersName } from '@utils/helpFunct'
 import ReactTimeAgo from 'react-time-ago'
 import { useViewConversation } from '@hooks/index'
-// import { ContextMenu } from '@components/chat/navbar/modal/contextMenu'
+import { ContextMenu } from '@components/chat/navbar/modal/contextMenu'
 import { authUserContext } from '@context/index'
 import { useParams } from 'react-router-dom'
 
@@ -13,7 +13,7 @@ interface ConversationItemProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export const ConversationItem: FC<ConversationItemProps> = ({
+export const Room: FC<ConversationItemProps> = ({
   conversation,
   setEditingConversation,
   setIsOpen,
@@ -21,18 +21,17 @@ export const ConversationItem: FC<ConversationItemProps> = ({
   //--------------------------------------------------------------------
   const { user } = useContext(authUserContext)
   const { conversationId } = useParams()
-  // const conversationId = router?.query?.conversationId as string
   const [contextMenu, setContextMenu] = useState<boolean>(false)
   const customImg = ''
   const { onViewConversation } = useViewConversation()
-  //---------------------------------------------------------------------------------------------
+  //-------------------------------------------------------------------
   const getUserParticipant = (conversation: ConversationFE) => {
     return Boolean(
       conversation.participants.find((p) => p.user.id === user?.id)
         ?.hasSeenLatestMsg
     )
   }
-  // //------------------------------------------------------------------------------
+  //-----------------------------------------------------------------
   const handleClick = (e: React.MouseEvent) => {
     if (e.type === 'click') {
       onViewConversation(
@@ -57,7 +56,7 @@ export const ConversationItem: FC<ConversationItemProps> = ({
       }}
       onContextMenu={handleClick}
     >
-      {/* {contextMenu && (
+      {contextMenu && (
         <ContextMenu
           close={setContextMenu}
           conversationId={conversation.id}
@@ -65,7 +64,7 @@ export const ConversationItem: FC<ConversationItemProps> = ({
           conversation={conversation}
           setIsOpen={setIsOpen}
         />
-      )} */}
+      )}
       <img
         src={
           customImg ||

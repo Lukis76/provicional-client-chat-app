@@ -7,7 +7,9 @@ import { useCreateConversation } from './createConversation'
 import { useRoom } from './room'
 import { useUpdateConversation } from './updateConversation'
 import { useValidator } from './useValidator'
-import {useOnDeletedConversation} from './onDeletedConversation'
+import { useOnDeletedConversation } from './onDeletedConversation'
+import { useGetConversations } from './getConversations'
+
 export {
   useAddAndRemoveUser,
   useAuthorization,
@@ -18,5 +20,6 @@ export {
   useUpdateConversation,
   useValidator,
   useViewConversation,
-  useOnDeletedConversation
+  useOnDeletedConversation,
+  useGetConversations,
 }

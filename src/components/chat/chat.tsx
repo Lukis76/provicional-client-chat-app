@@ -1,6 +1,6 @@
 import { Profile } from "@components/perfil";
 import type { FC } from 'react'
-import { Wrapper } from './navbar/wrapper'
+import { LeftBar } from './navbar/leftBar'
 import { FeedWrapper } from './conversation/feedWrapper'
 import { useAuthorization } from '@hooks/index'
 import { Navigate, Outlet } from 'react-router-dom'
@@ -19,7 +19,7 @@ export const Chat: FC = () => {
       ) : (
         <div className='flex w-full h-screen  overflow-hidden'>
           {/* <ModalProvider> */}
-          <Wrapper />
+          <LeftBar />
           <FeedWrapper/>
           <Profile />
           {/* </ModalProvider> */}
