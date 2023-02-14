@@ -1,3 +1,93 @@
-.conversation_container {
-  background: red;
+.room {
+  background: purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0.3rem; */
+  position: relative;
+  width: 5.6rem;
+  height: 5.6rem;
+}
+
+.avatar img {
+  /* position: relative; */
+  border-width: 0.3rem;
+  border-color: yellow;
+  border-style: solid;
+  border-radius: 99rem;
+
+  width: 5rem;
+  height: 5rem;
+  /* z-index: 20; */
+}
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.info {
+  /* z-index: 4; */
+}
+
+.expand {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+  z-index: 5;
+}
+.info:hover .expand div:nth-child(1) {
+  width: 93%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  background: rosybrown;
+  gap: 1rem;
+  /* z-index: 5; */
+
+}
+
+.info:hover .expand div:nth-child(2) {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  background: rosybrown;
+  margin-bottom: .2rem;
+  /* z-index: 5; */
+
+}
+
+.info:hover .expand {
+  display: flex;
+  visibility: visible;
+  background: #00ff40bb;
+  height: 100%;
+  width: 15rem;
+  top: 0;
+  bottom: 0;
+  /* margin-right: -2rem; */
+  border-radius: 0 9rem 9rem 0;
+  animation: expand 0.2s backwards;
+  flex-direction: column;
+  margin-left: 2.5rem;
+  align-items: start;
+  justify-content: space-between;
+  /* z-index: 5; */
+
+}
+
+@keyframes expand {
+  from {
+    width: 0rem;
+    transform: translateX(0%);
+  }
+  to {
+    width: 15rem;
+    transform: translateX(0%);
+  }
 }

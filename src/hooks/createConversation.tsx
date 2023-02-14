@@ -42,7 +42,7 @@ export const useCreateConversation = (
       // router.push({
       //   query: { conversationId },
       // });
-      navigate(`chat/${conversationId}`)
+      navigate(`/chat/${conversationId}`)
 
       setState((prev) => ({
         ...prev,

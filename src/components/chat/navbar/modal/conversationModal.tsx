@@ -22,6 +22,7 @@ import {
 } from 'react'
 import { toast } from 'react-hot-toast'
 import { authUserContext } from '@context/index'
+import css from '@styles/chat/navbar/modal.module.css'
 
 type TypeConversationModal = {
   close: Dispatch<SetStateAction<boolean>>
@@ -80,11 +81,7 @@ export const ConversationModal: FC<TypeConversationModal> = ({
       return
     }
   }, [editingConversation])
-  //---------------------------------------------------
-  //---------------------------------------------------
   //------------------------------------------------------------
-  //-----------------------------------------------
-
   const onConversationClick = () => {
     if (!state.existConversation) return
 
@@ -95,42 +92,32 @@ export const ConversationModal: FC<TypeConversationModal> = ({
     onViewConversation(state.existConversation.id, hasSeenLatestMsg, user)
     close((state) => !state)
   }
+
+  const handleClose = () => {
+    setState((prev) => ({
+      ...prev,
+      username: '',
+      participants: [],
+    }))
+    close((state) => !state)
+  }
   //-------------------------------------------------------------------
-  //-------------------------------------------------------------------
-  //-----------------------------------------------------------------------
-  //-----------------------------------------------------------------------
+
   if (searchUserError) {
     toast.error(searchUserError.message.toString())
     return null
   }
   //-----------------------------------------------------------------------
   return (
-    <div className='fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-[#00000088] ease duration-200 z-50'>
-      <button
-        className='fixed w-screen h-screen top-0 left-0'
-        onClick={() => {
-          setState((prev) => ({
-            ...prev,
-            username: '',
-            participants: [],
-          }))
-          close((state) => !state)
-        }}
-      />
-      <section className='relative flex flex-col justify-start items-center bg-zinc-900 text-zinc-300 max-w-2xl px-4 py-6 rounded-lg gap-4 z-20'>
-        <button
-          className='bg-red-500 opacity-70 p-2 rounded-lg absolute top-2 right-2 hover:opacity-100 ease duration-75'
-          onClick={() => {
-            setState((prev) => ({
-              ...prev,
-              username: '',
-              participants: [],
-            }))
-            close((state) => !state)
-          }}
-        >
-          X
-        </button>
+    <div className={`${css.modal}`}>
+      <button className={`${css.modal}`} onClick={handleClose} />
+      <section>
+        <div>
+          <button className={`${css.close}`} onClick={handleClose}>
+            <span />
+            <span />
+          </button>
+        </div>
         <h2 className='text-center font-semibold text-3xl w-full'>
           holisdffjeiu
         </h2>

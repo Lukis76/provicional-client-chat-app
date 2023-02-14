@@ -37,6 +37,7 @@ export const Register = () => {
             <label className={`${css.label_username}`}>
               <input
                 name='username'
+                value={values?.username || ''}
                 onChange={handleChange}
                 placeholder='Username'
               />
@@ -45,13 +46,20 @@ export const Register = () => {
             {/* ============================================================= */}
 
             <label className={`${css.label_email}`}>
-              <input name='email' onChange={handleChange} placeholder='Email' />
+              <input
+                type='email'
+                name='email'
+                value={values?.email || ''}
+                onChange={handleChange}
+                placeholder='Email'
+              />
               <em className={`${css.name}`}>Email</em>
             </label>
             {/* ============================================================= */}
 
             <label className={`${css.label_password}`}>
               <input
+                type='password'
                 name='password'
                 onChange={handleChange}
                 placeholder='Password'
@@ -62,6 +70,7 @@ export const Register = () => {
 
             <label className={`${css.label_confirmPassword}`}>
               <input
+                type='password'
                 name='confirmPassword'
                 onChange={handleChange}
                 placeholder='Confirm password'

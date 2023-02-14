@@ -11,10 +11,23 @@
 
 
 .btn_Add {
+  background: blue;
   border-radius: 99rem;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
   margin: .5rem 0;
+}
+
+.list_container {
+  background: red;
+  flex-grow: 1;
+  width: 100%;
+  margin: 1rem 0rem;
+  padding: 0 .5rem;
+}
+
+.logOut {
+  background: green;
 }

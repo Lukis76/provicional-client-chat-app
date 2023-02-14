@@ -17,7 +17,7 @@ export const LeftBar: FC = ({}) => {
   //----------------------------------------------------
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [editingConversation, setEditingConversation] =
+  const [editConversation, setEditConversation] =
     useState<ConversationFE | null>(null)
   //--------------------------------------------
   const { logOut } = useContext(authUserContext)
@@ -26,30 +26,30 @@ export const LeftBar: FC = ({}) => {
   //------------------------------------------------------
   // subscription add user and remove user
   useAddAndRemoveUser()
-  // -------------------------------------
+  // ---------------------------------
   // Subscription Deleted Conversation
   useSubsConversationDelete()
-  //------------------------------------------------------------------
+  //-------------------------
   return (
     <section className={`${css.conversation_container}`}>
+      {/* ---------------------------------------------------------------------- */}
 
       {isOpen && (
         <ConversationModal
           conversations={conversations}
           close={setIsOpen}
-          editingConversation={editingConversation}
+          editingConversation={editConversation}
         />
       )}
-
-
+      {/* ---------------------------------------------------------------------- */}
       <button
         className={css.btn_Add}
         onClick={() => setIsOpen((state) => !state)}
       >
         <SvgAdd size={72} />
       </button>
-
-      <div className='flex flex-col justify-start items-center w-full h-full gap-2  overflow-hidden ove'>
+      {/* ---------------------------------------------------------------------- */}
+      <div className={`${css.list_container}`}>
         {loading ? (
           <SkeletonConversationList cont={14} />
         ) : (
@@ -57,15 +57,17 @@ export const LeftBar: FC = ({}) => {
             <Room
               key={c.id}
               conversation={c}
-              setEditingConversation={setEditingConversation}
+              setEditingConversation={setEditConversation}
               setIsOpen={setIsOpen}
             />
           ))
         )}
       </div>
-      <div className='absolute bottom-2 left-0 right-0 w-full px-2'>
+      {/* ---------------------------------------------------------------------- */}
+      {/* // TODO: cambiar por desplegable de tres puntitos o umagen avatar mas optionas puntitos */}
+      <div className={`${css.logOut}`}>
         <button
-          className='bg-zinc-700 text-zinc-400 hover:bg-zinc-900 w-full px-4 py-1  rounded-lg'
+          className=''
           onClick={async () => {
             await logOut()
             navigate('/login')
@@ -74,7 +76,7 @@ export const LeftBar: FC = ({}) => {
           Logout
         </button>
       </div>
-      {/* </div> */}
+      {/* ---------------------------------------------------------------------- */}
     </section>
   )
 }
