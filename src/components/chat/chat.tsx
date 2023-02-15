@@ -21,7 +21,7 @@ export const Chat: FC = () => {
           {/* <ModalProvider> */}
           <LeftBar />
           <FeedWrapper/>
-          <Profile />
+          {/* <Profile /> */}
           {/* </ModalProvider> */}
           <Outlet />
         </div>

@@ -1,6 +1,5 @@
 import { Dispatch, FC, SetStateAction, useContext, useState } from 'react'
 import { ConversationFE, User } from '@types'
-// import { formatUsersName } from '@utils/helpFunct'
 import ReactTimeAgo from 'react-time-ago'
 import { useViewConversation } from '@hooks/index'
 import { ContextMenu } from '@components/chat/navbar/modal/contextMenu'

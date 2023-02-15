@@ -22,7 +22,8 @@ import {
 } from 'react'
 import { toast } from 'react-hot-toast'
 import { authUserContext } from '@context/index'
-import css from '@styles/chat/navbar/modal.module.css'
+import css from '@styles/chat/navbar/modal/modal.module.css'
+import style from '@styles/chat/navbar/modal/form_modal.module.css'
 
 type TypeConversationModal = {
   close: Dispatch<SetStateAction<boolean>>
@@ -50,14 +51,14 @@ export const ConversationModal: FC<TypeConversationModal> = ({
   //-----------------------------------------------------
   const { user } = useContext(authUserContext)
   const { onViewConversation } = useViewConversation()
-  //-----------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------
   const [
     searchUsers,
     { data: dataSearch, loading: loadingSearch, error: searchUserError },
   ] = useLazyQuery<SearchUsersData, SearchUsersInput>(
     operations.user.query.SEARCH_USERS
   )
-  //-----------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------
   const { onCreatedRoom, loadingCreateConversation } = useRoom(
     conversations,
     state,
@@ -112,21 +113,28 @@ export const ConversationModal: FC<TypeConversationModal> = ({
     <div className={`${css.modal}`}>
       <button className={`${css.modal}`} onClick={handleClose} />
       <section>
-        <div>
-          <button className={`${css.close}`} onClick={handleClose}>
+        {/* --------------------------------------------------------------- */}
+        <div className={`${css.close}`}>
+          <button onClick={handleClose}>
             <span />
             <span />
           </button>
         </div>
+        {/* --------------------------------------------------------------- */}
+
         <h2 className='text-center font-semibold text-3xl w-full'>
           holisdffjeiu
         </h2>
+        {/* --------------------------------------------------------------- */}
+
         <form
           onSubmit={handleSubmitSearch}
-          className='flex flex-col justify-start items-center gap-2'
+          className={`${style.form}`}
+          // className='flex flex-col justify-start items-center gap-2'
         >
           <input
             type='text'
+            autoFocus={true}
             value={state.username}
             placeholder='insert'
             onChange={(e) =>
@@ -142,9 +150,13 @@ export const ConversationModal: FC<TypeConversationModal> = ({
             {loadingSearch ? <SvgLoading size={24} /> : 'search'}
           </button>
         </form>
+        {/* --------------------------------------------------------------- */}
+
         {dataSearch?.searchUsers && (
           <UserSearchList users={dataSearch?.searchUsers} setState={setState} />
         )}
+        {/* --------------------------------------------------------------- */}
+
         {state.participants.length !== 0 && (
           <>
             {state.participants.length > 2 ? (
@@ -166,6 +178,7 @@ export const ConversationModal: FC<TypeConversationModal> = ({
             </div>
           </>
         )}
+        {/* --------------------------------------------------------------- */}
       </section>
     </div>
   )
