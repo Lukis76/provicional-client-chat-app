@@ -1,0 +1,26 @@
+.context_back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(250, 128, 114, 0.432);
+}
+
+.context {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  z-index: 30;
+  background: green;
+
+}
+
+.context button {
+  width: 100%;
+  
+}

@@ -1,103 +1,22 @@
-import { useMutation } from "@apollo/client";
-import { operations } from "@GraphQL/index";
-import { FC, FormEvent, useContext, useState } from "react";
-import { toast } from "react-hot-toast";
-import ObjectID from "bson-objectid";
-import { SendMsgVar, MsgsData, MsgsVar, User } from "@types";
-import { authUserContext } from "@context/index";
+import { FC } from 'react'
+import css from '@styles/chat/conversation/msg/imput.module.css'
+import { useSubmitMsg } from '@hooks/index'
 
-interface InputProps {
-  conversationId: string;
-}
-
-export const Input: FC<InputProps> = ({ conversationId }) => {
-  const user = useContext(authUserContext).user as User | null;
-  const [msg, setMsg] = useState<string>("");
-
-  const [sendMsg] = useMutation<{ sendMsg: boolean }, SendMsgVar>(
-    operations.message.Mutations.sendMsg
-  );
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    if (!msg) return;
-
-    setMsg("");
-    try {
-      // send Msg Mutation
-      const senderId = user?.id as string;
-      const newMsgId = ObjectID().toHexString();
-      const newMsg: SendMsgVar = {
-        id: newMsgId,
-        body: msg,
-        senderId,
-        conversationId,
-      };
-
-      const { data, errors } = await sendMsg({
-        variables: {
-          ...newMsg,
-        },
-        optimisticResponse: {
-          sendMsg: true,
-        },
-        update: (cache) => {
-          const exist = cache.readQuery<MsgsData, MsgsVar>({
-            query: operations.message.Queries.msgs,
-            variables: { conversationId },
-          }) as MsgsData;
-
-          cache.writeQuery<MsgsData, MsgsVar>({
-            query: operations.message.Queries.msgs,
-            variables: { conversationId },
-            data: {
-              ...exist,
-              msgs: [
-                {
-                  ...newMsg,
-                  sender: {
-                    id: user?.id as string,
-                    username: user?.username as string,
-                  },
-                  createdAt: new Date(Date.now()),
-                  updatedAt: new Date(Date.now()),
-                },
-                ...exist.msgs,
-              ],
-            },
-          });
-        },
-      });
-
-      if (!data?.sendMsg || errors) {
-        throw new Error("failed to send Msg");
-      }
-    } catch (err: any) {
-      console.error("handleSubmit > onSendMsg > Error 💣 💥 => ", err);
-      toast.error(err?.message);
-    }
-  };
+export const Input: FC = () => {
+  const { handleSubmit, handleChange, msg } = useSubmitMsg()
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-row justify-start items-center w-full py-2 px-2 pt-3 gap-4 sticky bottom-0 bg-zinc-700"
-    >
+    <form onSubmit={handleSubmit} className={`${css.form}`}>
       <input
-        placeholder="New message"
-        type="text"
+        placeholder='New message'
+        autoFocus
+        type='text'
         value={msg}
-        onChange={(e) => setMsg(e.target.value)}
-        className="text-zinc-800 placeholder:text-zinc-700 px-3 py-0.5 rounded-xl w-full"
+        onChange={handleChange}
       />
-      <button
-        disabled={msg.length ? false : true}
-        type="submit"
-        className="bg-green-500 text-zinc-800 px-2 rounded-lg disabled:bg-red-300"
-      >
+      <button disabled={msg.length ? false : true} type='submit'>
         Send
       </button>
     </form>
-  );
-};
+  )
+}

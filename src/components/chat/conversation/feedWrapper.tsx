@@ -6,30 +6,29 @@ import { Header } from './msg/header'
 import { Input } from './msg/input'
 import { Messages } from './msg/messages'
 import { useParams } from 'react-router-dom'
-
+import css from '@styles/chat/conversation/feedWrapper.module.css'
+//----------------------------------------------------------------
 export const FeedWrapper: FC = () => {
   const { conversationId } = useParams()
-
+  //----------------------------------------------------
   const { data } = useQuery<ConversationData | null>(
     operations.conversation.Queries.conversations
   )
-
+  //-------------------------------------------------------
   const conversation = data?.conversations.find(
     (conversation) => conversation.id === conversationId
   )
-
+  //-------------------------------------------------------
   return (
-    <div className='flex flex-col justify-center items-center h-screen w-full overscroll-none'>
+    <div className={`${css.msg_wrapper}`}>
       {conversationId && typeof conversationId === 'string' && conversation ? (
-        <div className='flex flex-col justify-between items-center min-h-screen w-full relative'>
+        <>
           <Header conversation={conversation} />
-          <Messages conversationId={conversationId} />
-          <Input conversationId={conversationId} />
-        </div>
+          <Messages />
+          <Input />
+        </>
       ) : (
-        <div className='flex justify-center items-center h-screen w-full'>
-          seleciona una conversacion
-        </div>
+        <span className={`${css.select}`}>seleciona una conversacion</span>
       )}
     </div>
   )

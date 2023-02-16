@@ -12,6 +12,7 @@ import { Login } from './components/login/login'
 import { Register } from './components/register/register'
 import { SvgLoading } from '@assets/svg'
 import Loading from '@components/utils/loading'
+import { FeedWrapper } from '@components/chat/conversation/feedWrapper'
 
 // const router = createBrowserRouter([
 //   {
@@ -47,16 +48,13 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Login />} />
-        
+        <Route path='/' element={<Navigate to={'/login'} />} />
 
         <Route path='chat' element={<Chat />}>
-          <Route path=':conversationId' element={<h1>conversation id</h1>} />
-          {/* <Route path='/:conversationId' element={<h1>Lukitras intern</h1>} /> */}
+          <Route path=':conversationId' element={<FeedWrapper />} />
         </Route>
 
         <Route path='/login' element={<Login />} />
-
 
         <Route path='/register' element={<Register />} />
         <Route
@@ -71,11 +69,21 @@ function App() {
         <Route
           path='*'
           element={
+            <>
             <h1>
               ^ <br />
               ^^^ <br /> || <br /> || <br />
               <br /> la ruta no es valuda por favor revice la url
             </h1>
+
+            <span>
+              <hr />
+              <br />
+              <strong>seras redireccionado al <span>Login</span> en 5 seg</strong>
+            </span>
+            
+            <Navigate to={'/login'} />
+            </>
           }
         />
       </Routes>

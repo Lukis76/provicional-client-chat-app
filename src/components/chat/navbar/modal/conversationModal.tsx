@@ -153,18 +153,18 @@ export const ConversationModal: FC<TypeConversationModal> = ({
         {/* --------------------------------------------------------------- */}
 
         {dataSearch?.searchUsers && (
-          <UserSearchList users={dataSearch?.searchUsers} setState={setState} />
+          <UserSearchList users={dataSearch?.searchUsers} setState={setState} state={state} />
         )}
         {/* --------------------------------------------------------------- */}
 
         {state.participants.length !== 0 && (
           <>
-            {state.participants.length > 2 ? (
+            {state.participants.length > 0 ? (
               <Participants state={state} setState={setState} />
             ) : (
               <p>the minimum number of participants is two </p>
             )}
-            <div className='flex justify-center items-center w-full'>
+            {/* <div className='flex justify-center items-center w-full'> */}
               <button
                 className='flex justify-center items-center text-center text-lg font-medium rounded-lg px-4 py-1 bg-blue-400 w-full'
                 onClick={() => onCreatedRoom(editingConversation)}
@@ -175,7 +175,7 @@ export const ConversationModal: FC<TypeConversationModal> = ({
                   'Create room'
                 )}
               </button>
-            </div>
+            {/* </div> */}
           </>
         )}
         {/* --------------------------------------------------------------- */}

@@ -2,9 +2,9 @@
   width: 100%;
   padding: 0 1rem;
   display: flex;
+  flex-wrap: wrap;
+
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   background: yellow;
 }
 
@@ -13,4 +13,18 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  
+  border-radius: .6rem;
+  background: salmon;
+  padding: .2rem .3rem .2rem .5rem;
+  gap: .4rem;
+}
+
+.item p {
+  font-size: 1.3rem;
+  max-width: 10rem;
+}
+
+.item button {
+  padding: .3rem .6rem;
 }

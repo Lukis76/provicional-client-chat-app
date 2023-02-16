@@ -9,6 +9,7 @@ import { useUpdateConversation } from './updateConversation'
 import { useValidator } from './useValidator'
 import { useOnDeletedConversation } from './onDeletedConversation'
 import { useGetConversations } from './getConversations'
+import { useSubmitMsg } from './submitMsg'
 
 export {
   useAddAndRemoveUser,
@@ -22,4 +23,5 @@ export {
   useViewConversation,
   useOnDeletedConversation,
   useGetConversations,
+  useSubmitMsg,
 }

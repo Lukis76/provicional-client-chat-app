@@ -1,6 +1,8 @@
 import { Dispatch, FC, SetStateAction } from "react";
 import { SearchUser } from "@types";
 import { TypeState } from "./conversationModal";
+import css from '@styles/chat/navbar/modal/searchList.module.css'
+
 
 type TypeParticipants = {
   state: TypeState;
@@ -17,11 +19,15 @@ export const Participants: FC<TypeParticipants> = ({ state, setState }) => {
   };
 
   return (
-    <div className="flex flex-wrap flex-row w-full">
+    <div 
+    className={`${css.content}`}
+    // className="flex flex-wrap flex-row w-full"
+    >
       {state.participants.map((user: SearchUser) => (
         <div
           key={user.id}
-          className="flex flex-row items-center hover:bg-blue-700 rounded-lg pl-3 pr-1 gap-2 "
+          className={`${css.item}`}
+          // className="flex flex-row items-center hover:bg-blue-700 rounded-lg pl-3 pr-1 gap-2 "
         >
           <p className="text-center text-xs">{user.username}</p>
           <button
