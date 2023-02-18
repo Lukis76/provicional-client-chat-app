@@ -4,8 +4,8 @@
   justify-content: end;
   align-items: center;
   width: 100%;
-  flex-grow: 2;
-  background: goldenrod;
+  height: 100%;
   padding: 1rem 0.5rem;
   gap: 1rem;
+  overflow-y: auto;
 }

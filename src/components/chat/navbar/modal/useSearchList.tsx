@@ -38,7 +38,7 @@ export const UserSearchList: FC<TypeUseSearchList> = ({
           {users.map((u: SearchUser) => {
             return (
               !state.participants?.map((p) => p.id).includes(u.id) &&
-              !state.participants?.map((p) => p.id).includes(user.id) && (
+              !state.participants?.map((p) => p.id).includes(user?.id as string) && (
                 <div
                   key={u.id}
                   className={`${css.item} lukitas ${u.id}`}

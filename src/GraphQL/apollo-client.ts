@@ -5,7 +5,6 @@ import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 //////////////////////////////////////////////////////////////////
 const getStorage = () => {
-  console.log('apolo client 🥇 👍 💯 👎')
   return (() =>
     typeof window !== 'undefined' ? localStorage.getItem('token') : null)()
 }

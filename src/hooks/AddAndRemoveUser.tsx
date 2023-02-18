@@ -17,10 +17,7 @@ export const useAddAndRemoveUser = () => {
   const navigate = useNavigate()
   const { conversationId } = useParams()
   const { hola } = useParams()
-  console.log(
-    '🚀 ~ file: AddAndRemoveUser.tsx:14 ~ useAddAndRemoveUser ~ hola',
-    hola
-  )
+  
   const { onViewConversation } = useViewConversation()
 
   useSubscription<ConversationUpdatedData | null>(

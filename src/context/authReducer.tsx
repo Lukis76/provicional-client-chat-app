@@ -1,4 +1,4 @@
-import { ActionTypes, InitialStateProps } from "@context";
+import { ActionTypes, InitialStateProps } from "@context/index";
 ////////////////////////////////////////////////////////////////////////////////
 export const authReducer = (state: InitialStateProps, action: ActionTypes) => {
   switch (action.type) {

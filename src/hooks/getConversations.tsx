@@ -8,17 +8,23 @@ import {
 import { useEffect, useState } from 'react'
 
 export const useGetConversations = () => {
-  const [conversations, setConversations] = useState<Array<ConversationFE>>([])
+  const [conversations, setConversations] = useState<
+    Array<ConversationFE> | undefined
+  >(undefined)
 
   //-------------------------------------------
-  const { loading, subscribeToMore } = useQuery<ConversationData>(
+  const { data, loading, error, subscribeToMore } = useQuery<ConversationData>(
     operations.conversation.Queries.conversations,
     {
-      onCompleted(data) {
-        const orderConversations = [...data.conversations].sort(
-          (a, b) => b.updatedAt.valueOf() - a.updatedAt.valueOf()
+      onCompleted: (data) => {
+        setConversations(
+          [...data.conversations].sort(
+            (a, b) => b.updatedAt.valueOf() - a.updatedAt.valueOf()
+          )
         )
-        setConversations(orderConversations)
+      },
+      variables: {
+        token: localStorage.getItem('token'),
       },
     }
   )
@@ -42,5 +48,7 @@ export const useGetConversations = () => {
   return {
     conversations,
     loading,
+    error,
+    data,
   }
 }

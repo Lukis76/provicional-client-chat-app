@@ -5,6 +5,7 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
+  background: #292a2d;
 }
 
 .center_loading {
@@ -13,5 +14,5 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-
+  background: #292a2d;
 }

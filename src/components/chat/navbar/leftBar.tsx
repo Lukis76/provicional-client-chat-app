@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { ConversationFE } from '@types'
 import { Room } from './room'
 import { SkeletonConversationList } from '../skeleton'
@@ -12,71 +12,74 @@ import {
   useSubsConversationDelete,
 } from '@hooks/index'
 import { SvgAdd } from '@assets/svg/add'
-////////////////////////////////////////////////////////////////////////
-export const LeftBar: FC = ({}) => {
-  //----------------------------------------------------
-  const navigate = useNavigate()
+////////////////////////////////////////
+export const LeftBar = () => {
+  //-----------------------------------------------------------
+  const [edit, setEdit] = useState<ConversationFE | null>(null)
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [editConversation, setEditConversation] =
-    useState<ConversationFE | null>(null)
+  const navigate = useNavigate()
   //--------------------------------------------
   const { logOut } = useContext(authUserContext)
-  //------------------------------------------------------
-  const { conversations, loading } = useGetConversations()
-  //------------------------------------------------------
+  //---------------------------------------------
+  const { conversations } = useGetConversations()
+  //---------------------------------------------
   // subscription add user and remove user
   useAddAndRemoveUser()
   // ---------------------------------
   // Subscription Deleted Conversation
   useSubsConversationDelete()
   //-------------------------
+
   return (
     <section className={`${css.conversation_container}`}>
-      {/* ---------------------------------------------------------------------- */}
+      {/* ------------------------------------------------ */}
 
       {isOpen && (
         <ConversationModal
-          conversations={conversations}
+          conversations={conversations || []}
           close={setIsOpen}
-          editingConversation={editConversation}
+          editingConversation={edit}
         />
       )}
-      {/* ---------------------------------------------------------------------- */}
+      {/* ------------------------------------------------ */}
       <button
         className={css.btn_Add}
         onClick={() => setIsOpen((state) => !state)}
       >
-        <SvgAdd size={72} />
+        <span/><span/>
+        {/* <SvgAdd size={72} /> */}
       </button>
-      {/* ---------------------------------------------------------------------- */}
+      {/* ------------------------------------------------ */}
       <div className={`${css.list_container}`}>
-        {loading ? (
+        {!conversations ? (
           <SkeletonConversationList cont={14} />
         ) : (
           conversations?.map((c) => (
             <Room
               key={c.id}
               conversation={c}
-              setEditingConversation={setEditConversation}
+              setEditingConversation={setEdit}
               setIsOpen={setIsOpen}
             />
           ))
         )}
       </div>
-      {/* ---------------------------------------------------------------------- */}
+      {/* ------------------------------------------------- */}
       {/* // TODO: cambiar por desplegable de tres puntitos o umagen avatar mas optionas puntitos */}
       <div className={`${css.logOut}`}>
         <button
           className=''
-          onClick={async () => {
-            await logOut()
+          onClick={() => {
+            logOut()
             navigate('/login')
           }}
         >
-          Logout
+          <span/>
+          <span/>
+          <span/>
         </button>
       </div>
-      {/* ---------------------------------------------------------------------- */}
+      {/* ------------------------------------------------- */}
     </section>
   )
 }

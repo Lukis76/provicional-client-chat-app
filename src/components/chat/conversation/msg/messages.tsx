@@ -6,7 +6,6 @@ import { useMsg } from '@hooks/msg'
 
 export const Messages: FC = () => {
   const { data, loading, userId } = useMsg()
-  console.log('🚀 ~ file: messages.tsx:9 ~ data', data)
 
   return (
     <div className={`${css.content_msg}`}>

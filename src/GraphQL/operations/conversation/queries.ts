@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 export const Queries = {
   conversations: gql`
-    query Conversations {
-      conversations {
+    query Conversations($token: String) {
+      conversations(token: $token) {
         id
         participants {
           user {

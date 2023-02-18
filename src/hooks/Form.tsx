@@ -60,7 +60,6 @@ export const useForm = (
   const handleSubmit = async (e: FormEvent<HTMLElement>) => {
     e.preventDefault()
     if (typeForm === 'LOGIN') {
-      console.log('🚀 ~ file: useForm.tsx:60 ~ handleChange ~ values', values)
 
       await loginUser()
       navigate('/chat')

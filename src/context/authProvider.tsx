@@ -5,8 +5,7 @@ import {
   AuthUserProviderProps,
   InitialStateProps,
   UserDataTypes,
-} from '@context'
-import { useNavigate } from 'react-router-dom'
+} from '@context/index'
 //////////////////////////////////////////////////////////////////////////////////
 const storage = () => {
   const user = typeof window !== 'undefined' && localStorage.getItem('user')
@@ -22,18 +21,9 @@ export const AuthUserProvider: FC<AuthUserProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
   //--------------------------------------------------------------
   const login = async (userData: UserDataTypes) => {
+    
     if (typeof window !== 'undefined') {
-      console.log(
-        '🚀 ~ file: authProvider.tsx:25 ~ login ~ typeof window',
-        typeof window
-      )
-      console.log('🚀 ~ file: authProvider.tsx:24 ~ login ~ userData', userData)
-
       localStorage.setItem('user', JSON.stringify(userData))
-      console.log(
-        "🚀 ~ file: authProvider.tsx:30 ~ login ~ localStorage.getItem('user')",
-        localStorage.getItem('user')
-      )
       localStorage.setItem('token', JSON.stringify(userData.token))
     }
 
@@ -42,11 +32,9 @@ export const AuthUserProvider: FC<AuthUserProviderProps> = ({ children }) => {
       payload: userData,
     })
   }
-  //---------------------------------
+  //---------------------
   const logOut = () => {
     localStorage.clear()
-    // localStorage.removeItem('user')
-    // localStorage.removeItem('token')
 
     return dispatch({
       type: 'LOGOUT',
