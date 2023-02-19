@@ -1,10 +1,18 @@
+import { SvgEmail } from '@assets/svg/@'
+import { SvgPass } from '@assets/svg/Pass'
 import { SvgLoading } from '@assets/svg/index'
+import { SvgOffView } from '@assets/svg/offView'
+import { SvgUser } from '@assets/svg/user'
+import { SvgView } from '@assets/svg/view'
 import Loading from '@components/utils/loading'
 import { useAuthorization, useForm } from '@hooks/index'
 import css from '@styles/signIn_signUp/form.module.css'
+import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
 export const Register = () => {
+  const [viewPass, setViewPass] = useState<boolean>(false)
+
   const {
     handleChange,
     handleBlur,
@@ -42,6 +50,9 @@ export const Register = () => {
                 placeholder='Username'
               />
               <em className={`${css.name}`}>Username</em>
+              <i aria-checked={true}>
+                <SvgUser />
+              </i>
             </label>
             {/* ============================================================= */}
 
@@ -54,31 +65,45 @@ export const Register = () => {
                 placeholder='Email'
               />
               <em className={`${css.name}`}>Email</em>
+              <i aria-checked={true}>
+                <SvgEmail />
+              </i>
             </label>
             {/* ============================================================= */}
 
             <label className={`${css.label_password}`}>
               <input
-                type='password'
+                type={viewPass ? 'text' : 'password'}
                 name='password'
                 onChange={handleChange}
                 placeholder='Password'
               />
               <em className={`${css.name}`}>Password</em>
+              <i aria-checked={true}>
+                <SvgPass />
+              </i>
+              <span aria-checked={true} onClick={() => setViewPass((p) => !p)}>
+                {viewPass ? <SvgOffView /> : <SvgView />}
+              </span>
             </label>
             {/* ============================================================= */}
 
             <label className={`${css.label_confirmPassword}`}>
               <input
-                type='password'
+                type={viewPass ? 'text' : 'password'}
                 name='confirmPassword'
                 onChange={handleChange}
                 placeholder='Confirm password'
               />
               <em className={`${css.name}`}>Confirm password</em>
+              <i aria-checked={true}>
+                <SvgPass />
+              </i>
+              <span onClick={() => setViewPass((p) => !p)}>
+                {viewPass ? <SvgOffView /> : <SvgView />}
+              </span>
             </label>
             {/* ============================================================= */}
-
             <button
               type='submit'
               className='text-center py-1 px-6 rounded-lg bg-blue-500 hover:opacity-30'
@@ -93,7 +118,8 @@ export const Register = () => {
             })}
           </form>
           <span>
-            ya estas registrado - <Link to={'/login'}>SignIn</Link>
+            <em>ya estas registrado?</em>
+            <Link to={'/login'}>SignIn</Link>
           </span>
         </section>
       )}

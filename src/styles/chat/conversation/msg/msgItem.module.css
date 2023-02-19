@@ -10,6 +10,18 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
+.msg :nth-child(1) {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  text-align: start;
+}
+
 .msg[aria-selected='true'] {
   align-self: flex-end;
   margin-left: 1rem;

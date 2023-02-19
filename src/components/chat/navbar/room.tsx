@@ -72,7 +72,11 @@ export const Room: FC<RoomType> = ({
       {/* --------------------------------------------------------------- */}
       <div className={`${css.info}`}>
         <div className={`${css.avatar}`}>
-          <img aria-checked={getUserParticipant(conversation)} src={customImg || DEFAUT_IMG} alt={'img room'} />
+          <img
+            aria-checked={getUserParticipant(conversation)}
+            src={customImg || DEFAUT_IMG}
+            alt={'img room'}
+          />
         </div>
         <div className={`${css.expand}`}>
           <div>
@@ -89,11 +93,6 @@ export const Room: FC<RoomType> = ({
           </div>
           <div className=''>
             <span className=''>{conversation?.latestMsg?.body}</span>
-
-            {/* TODO: campanita parpadiante de que no esta leido */}
-            {getUserParticipant(conversation) === false && (
-              <span className='flex self-end w-4 h-4 rounded-full animate-pulse opacity-0 bg-green-500' />
-            )}
           </div>
         </div>
       </div>

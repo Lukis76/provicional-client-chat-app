@@ -25,7 +25,7 @@ export const ContextMenu: FC<TypeContextMenu> = ({
       className={`${css.context}`} 
       // className="absolute top-1/2 left-1/3 rounded-md bg-zinc-800 flex flex-col justify-center items-center z-20 w-full max-w-[8rem] border-white border-[1px] border-opacity-80"
       >
-        <button
+        <div
           className="text-center px-6 py-1 hover:bg-zinc-700 w-full rounded-t-md"
           onClick={(e) => {
             e.stopPropagation();
@@ -35,8 +35,8 @@ export const ContextMenu: FC<TypeContextMenu> = ({
           }}
         >
           Edit
-        </button>
-        <button
+        </div>
+        <div
           className="text-center px-6 py-1 hover:bg-zinc-700 w-full rounded-b-md"
           onClick={async (e) => {
             e.stopPropagation();
@@ -45,7 +45,7 @@ export const ContextMenu: FC<TypeContextMenu> = ({
           }}
         >
           Deleted
-        </button>
+        </div>
       </div>
     </>
   );

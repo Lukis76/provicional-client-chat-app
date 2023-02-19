@@ -13,14 +13,14 @@ export const MessageItem: FC<MessageItemType> = ({ msg, sendByMe }) => {
     <>
       <div aria-selected={sendByMe} className={`${css.msg}`}>
         <span>
-          {sendByMe ? 'Tu' : msg?.sender?.username}
-          <span>{' - '}</span>
+          {sendByMe ? 'You' : msg?.sender?.username}
+          <span>{' - hace '}</span>
           <ReactTimeAgo
             date={Number(new Date(msg.createdAt))}
             timeStyle={'twitter'}
           />
         </span>
-        <span>{msg?.body}</span>
+        <span className={`${css.body}`}>{msg?.body}</span>
       </div>
       <span className={`${css.triangulo}`}></span>
     </>

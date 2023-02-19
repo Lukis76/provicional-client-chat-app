@@ -42,6 +42,7 @@ export const ConversationModal: FC<TypeConversationModal> = ({
   conversations,
   editingConversation,
 }) => {
+  console.log("🚀 ~ file: conversationModal.tsx:45 ~ editingConversation", editingConversation)
   //-----------------------------------------------
   const [state, setState] = useState<TypeState>({
     username: '',
@@ -121,17 +122,9 @@ export const ConversationModal: FC<TypeConversationModal> = ({
           </button>
         </div>
         {/* --------------------------------------------------------------- */}
-
-        <h2 className='text-center font-semibold text-3xl w-full'>
-          holisdffjeiu
-        </h2>
+        <h2>{editingConversation ? 'Editing Room' : 'Created Room'}</h2>
         {/* --------------------------------------------------------------- */}
-
-        <form
-          onSubmit={handleSubmitSearch}
-          className={`${style.form}`}
-          // className='flex flex-col justify-start items-center gap-2'
-        >
+        <form onSubmit={handleSubmitSearch} className={`${style.form}`}>
           <input
             type='text'
             autoFocus={true}
@@ -140,23 +133,20 @@ export const ConversationModal: FC<TypeConversationModal> = ({
             onChange={(e) =>
               setState((prev) => ({ ...prev, username: e.target.value }))
             }
-            className='px-2 py-1 rounded-md focus:bg-zinc-800 bg-zinc-900 border-zinc-700 border-2 text-lg w-full'
           />
-          <button
-            type='submit'
-            disabled={!state.username}
-            className='flex justify-center items-center bg-zinc-800 w-full py-1 px-4 text-lg rounded-md disabled:opacity-30 hover:bg-zinc-700 ease duration-100'
-          >
-            {loadingSearch ? <SvgLoading size={24} /> : 'search'}
+          <button type='submit' disabled={!state.username}>
+            {loadingSearch ? <SvgLoading size={24} /> : 'Search'}
           </button>
         </form>
         {/* --------------------------------------------------------------- */}
-
         {dataSearch?.searchUsers && (
-          <UserSearchList users={dataSearch?.searchUsers} setState={setState} state={state} />
+          <UserSearchList
+            users={dataSearch?.searchUsers}
+            setState={setState}
+            state={state}
+          />
         )}
         {/* --------------------------------------------------------------- */}
-
         {state.participants.length !== 0 && (
           <>
             {state.participants.length > 0 ? (
@@ -164,18 +154,13 @@ export const ConversationModal: FC<TypeConversationModal> = ({
             ) : (
               <p>the minimum number of participants is two </p>
             )}
-            {/* <div className='flex justify-center items-center w-full'> */}
-              <button
-                className='flex justify-center items-center text-center text-lg font-medium rounded-lg px-4 py-1 bg-blue-400 w-full'
-                onClick={() => onCreatedRoom(editingConversation)}
-              >
-                {loadingCreateConversation ? (
-                  <SvgLoading size={24} />
-                ) : (
-                  'Create room'
-                )}
-              </button>
-            {/* </div> */}
+            <button onClick={() => onCreatedRoom(editingConversation)}>
+              {loadingCreateConversation ? (
+                <SvgLoading size={24} />
+              ) : (
+                'Create room'
+              )}
+            </button>
           </>
         )}
         {/* --------------------------------------------------------------- */}
