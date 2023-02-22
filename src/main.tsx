@@ -8,6 +8,7 @@ import { client } from '@GraphQL/index'
 import { AuthUserProvider } from '@context/index'
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
+import { Toaster } from 'react-hot-toast'
 // import es from 'javascript-time-ago/locale/es-AR.json'
 
 // TimeAgo.addDefaultLocale(en)
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     <AuthUserProvider>
     <BrowserRouter>
       <App />
+      <Toaster />
     </BrowserRouter>
     </AuthUserProvider>
   </ApolloProvider>
