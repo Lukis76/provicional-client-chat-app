@@ -1,19 +1,20 @@
-import { ChangeEvent, FormEvent, useState, useContext } from 'react'
+import { FormEvent, useState, useContext } from 'react'
 import { GraphQLErrors } from '@apollo/client/errors'
+import { authUserContext } from '@context/index'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
-import { authUserContext } from '@context/index'
 import { operations } from '@GraphQL/index'
 import useValidator from './useValidator'
+import { toast } from 'react-hot-toast'
 
 type LOGIN = 'LOGIN'
 type REGISTER = 'REGISTER'
 
 type initialStateForm = {
-  username?: string | null
-  email: string | null
-  password: string | null
-  confirmPassword?: string | null
+  username?: string | undefined
+  email: string | undefined
+  password: string | undefined
+  confirmPassword?: string | undefined
 }
 
 export const useForm = (
@@ -21,10 +22,10 @@ export const useForm = (
   initialState: initialStateForm
 ) => {
   const navigate = useNavigate()
-  const [errors, setErrors] = useState<GraphQLErrors>([])
+  // const [errors, setErrors] = useState<GraphQLErrors>([])
   const { login } = useContext(authUserContext)
   //------------------------------------------------------------
-  const { handleChange, handleBlur, errorValues, values } =
+  const { handleChange, errorValues, errors, values } =
     useValidator(initialState)
   //------------------------------------------------------------
 
@@ -36,7 +37,9 @@ export const useForm = (
         login(userData)
       },
       onError({ graphQLErrors }) {
-        setErrors(graphQLErrors)
+        toast.error(
+          'el logeo a fallado porfavor revisa tu conecciona a internet'
+        )
       },
       variables: { loginInput: values },
     }
@@ -46,7 +49,9 @@ export const useForm = (
     operations.user.mutation.REGISTER_USER,
     {
       onError({ graphQLErrors }) {
-        setErrors(graphQLErrors)
+        toast.error(
+          'el registro a fallado porfavor revisa tu conecciona a internet'
+        )
       },
       onCompleted() {
         navigate('/login')
@@ -60,7 +65,6 @@ export const useForm = (
   const handleSubmit = async (e: FormEvent<HTMLElement>) => {
     e.preventDefault()
     if (typeForm === 'LOGIN') {
-
       await loginUser()
       navigate('/chat')
     }
@@ -80,11 +84,12 @@ export const useForm = (
 
   return {
     handleChange,
-    handleBlur,
+    // handleBlur,
+    errors,
     errorValues,
     handleSubmit,
     values,
-    errors,
+    // errors: errorValues,
     loading: select(),
   }
 }
