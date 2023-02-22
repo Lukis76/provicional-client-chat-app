@@ -1,5 +1,52 @@
 .container {
-  background-image: url(img_background.jpeg);
+  /* ff 3.6+ */
+  background: -moz-linear-gradient(
+    90deg,
+    #ee82ee 0%,
+    #864caf 27%,
+    #4ca8af 70%,
+    #0000ff 100%
+  );
+
+  /* safari 5.1+,chrome 10+ */
+  background: -webkit-linear-gradient(
+    90deg,
+    #ee82ee 0%,
+    #864caf 27%,
+    #4ca8af 70%,
+    #0000ff 100%
+  );
+
+  /* opera 11.10+ */
+  background: -o-linear-gradient(
+    90deg,
+    #ee82ee 0%,
+    #864caf 27%,
+    #4ca8af 70%,
+    #0000ff 100%
+  );
+
+  /* ie 6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0000ff', endColorstr='#EE82EE', GradientType=0 );
+
+  /* ie 10+ */
+  background: -ms-linear-gradient(
+    90deg,
+    #ee82ee 0%,
+    #864caf 27%,
+    #4ca8af 70%,
+    #0000ff 100%
+  );
+
+  /* global 94%+ browsers support */
+  background: linear-gradient(
+    90deg,
+    #ee82ee 0%,
+    #864caf 27%,
+    #4ca8af 70%,
+    #0000ff 100%
+  );
+
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -14,7 +61,7 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  background: #dedee6d9;
+  background: #bbb7d6;
   transition: all 0.2s ease;
 }
 
@@ -31,8 +78,8 @@
 }
 
 .form_container > span > em {
-  opacity: .9;
-  font-size: .9rem;
+  opacity: 0.9;
+  font-size: 0.9rem;
 }
 
 .form {
@@ -53,28 +100,27 @@
 .form label span {
   position: absolute;
   right: 0.4rem;
-  top: .5rem;
-} 
+  top: 0.5rem;
+}
 
 .form label i {
   position: absolute;
   left: 0.3rem;
-  top: .2rem;
-} 
-
+  top: 0.2rem;
+}
 
 input ~ i > * {
-  opacity: .2;
+  opacity: 0.2;
   color: #000000;
 }
 
 input:focus ~ i > * {
-  opacity: .8;
+  opacity: 0.8;
   color: purple;
 }
 
-label > span *{
-  opacity: .4;
+label > span * {
+  opacity: 0.4;
   color: #000000;
 }
 
@@ -86,7 +132,7 @@ label > span *{
   padding: 0.4rem 2.4rem;
   transition: all 0.4s ease;
   outline-color: #4c00825d;
-  background: #dedee6bb;
+  /* background: #dedee6bb; */
 }
 
 .name {
@@ -103,8 +149,9 @@ label > span *{
   font-size: 1.1rem;
 }
 
+
 .form input:focus ~ em {
-  background: #dedee6;
+  background: #bbb7d6;
   color: #4c00825d;
   font-size: 0.9rem;
   top: -0.7rem;
@@ -129,3 +176,31 @@ label > span *{
   background: #dedee699;
   color: #000000bb;
 }
+
+/* .form input {
+  background: #09f !important;
+} */
+
+.form input[aria-invalid=false] {
+  outline-color: red;
+  animation: pulse .5s linear infinite;
+}
+
+.form input[aria-invalid='true'] {
+  outline-color: green;
+  animation: pulse .5s linear infinite;
+}
+
+/* .form input[checked=undefined] {
+  outline-color: green;
+  animation: pulse .5s linear infinite;
+} */
+
+/* @keyframes pulse {
+  from {
+    outline: none;
+  }
+  to {
+    outline: auto;
+  }
+} */
