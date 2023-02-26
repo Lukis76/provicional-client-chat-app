@@ -4,18 +4,19 @@ import { authUserContext } from '@context/index'
 import { operations } from '@GraphQL/index'
 import { useContext, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
-import { MsgsData, MsgsVar, MsgSubscriptionData } from '@types'
+import { MsgsData, MsgSubscriptionData } from '@types'
 
 export const useMsg = () => {
   const conversationId = useParams().conversationId as string
 
   const { user } = useContext(authUserContext)
 
-  const { data, loading, error, subscribeToMore } = useQuery<MsgsData, MsgsVar>(
+  const { data, loading, error, subscribeToMore } = useQuery<MsgsData>(
     operations.message.Queries.msgs,
     {
       variables: {
         conversationId,
+        token: localStorage.getItem('token'),
       },
     }
   )
