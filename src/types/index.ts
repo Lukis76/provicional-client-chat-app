@@ -148,10 +148,6 @@ export interface MsgsData {
   msgs: Array<MsgFE>
 }
 //--------------------------------------
-export interface MsgsVar {
-  conversationId: string
-}
-//--------------------------------------
 export interface SendMsgVar {
   id: string
   conversationId: string
