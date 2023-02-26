@@ -1,39 +1,45 @@
-import { useContext, useState } from 'react'
-import { ConversationFE } from '@types'
-import { Room } from './room'
-import { SkeletonConversationList } from '../skeleton'
-import { ConversationModal } from './modal/conversationModal'
-import { authUserContext } from '@context/index'
-import { useNavigate } from 'react-router-dom'
-import css from '@styles/chat/navbar/leftBar.module.css'
-import {
-  useGetConversations,
-  useAddAndRemoveUser,
-  useSubsConversationDelete,
-} from '@hooks/index'
-import { SvgAdd } from '@assets/svg/add'
+import { useContext, useState } from "react";
+import { ConversationFE } from "@types";
+import { Room } from "./room";
+import { SkeletonConversationList } from "../skeleton";
+import { ConversationModal } from "./modal/conversationModal";
+import { authUserContext } from "@context/index";
+import { useNavigate } from "react-router-dom";
+import css from "@styles/chat/navbar/leftBar.module.css";
+import { useGetConversations, useAddAndRemoveUser, useSubsConversationDelete } from "@hooks/index";
+import { GlowMenu } from "./glowMenu";
 ////////////////////////////////////////
 export const LeftBar = () => {
   //-----------------------------------------------------------
-  const [edit, setEdit] = useState<ConversationFE | null>(null)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const navigate = useNavigate()
+  const [edit, setEdit] = useState<ConversationFE | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [viewMenuUser, setViewMenuUser] = useState<boolean>(false);
+  const navigate = useNavigate();
   //--------------------------------------------
-  const { logOut } = useContext(authUserContext)
+  const { logOut } = useContext(authUserContext);
   //---------------------------------------------
-  const { conversations } = useGetConversations()
+  const { conversations } = useGetConversations();
   //---------------------------------------------
   // subscription add user and remove user
-  useAddAndRemoveUser()
+  useAddAndRemoveUser();
   // ---------------------------------
   // Subscription Deleted Conversation
-  useSubsConversationDelete()
+  useSubsConversationDelete();
   //-------------------------
-
+  const optionsMenu = [
+    { name: "profile", action: () => {} },
+    {
+      name: "logOut",
+      action: () => {
+        logOut();
+        navigate("/login");
+      },
+    },
+  ];
+  //------------------------------------------------------
   return (
     <section className={`${css.conversation_container}`}>
       {/* ------------------------------------------------ */}
-
       {isOpen && (
         <ConversationModal
           conversations={conversations || []}
@@ -42,15 +48,13 @@ export const LeftBar = () => {
         />
       )}
       {/* ------------------------------------------------ */}
-      <button
-        className={css.btn_Add}
-        onClick={() => setIsOpen((state) => !state)}
-      >
-        <span/><span/>
-        {/* <SvgAdd size={72} /> */}
+      <button className={css.btn_Add} onClick={() => setIsOpen((state) => !state)}>
+        <span />
+        <span />
       </button>
       {/* ------------------------------------------------ */}
       <div className={`${css.list_container}`}>
+
         {!conversations ? (
           <SkeletonConversationList cont={14} />
         ) : (
@@ -65,21 +69,15 @@ export const LeftBar = () => {
         )}
       </div>
       {/* ------------------------------------------------- */}
-      {/* // TODO: cambiar por desplegable de tres puntitos o umagen avatar mas optionas puntitos */}
-      <div className={`${css.logOut}`}>
-        <button
-          className=''
-          onClick={() => {
-            logOut()
-            navigate('/login')
-          }}
-        >
-          <span/>
-          <span/>
-          <span/>
+      <div className={`${css.userOptions}`}>
+        <button onClick={() => setViewMenuUser((prev) => !prev)}>
+          <span />
+          <span />
+          <span />
         </button>
+        {viewMenuUser && <GlowMenu style={css.positionMenuUser} options={optionsMenu} view={setViewMenuUser} />}
       </div>
       {/* ------------------------------------------------- */}
     </section>
-  )
-}
+  );
+};
