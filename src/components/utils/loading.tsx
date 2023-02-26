@@ -1,12 +1,11 @@
-import { SvgLoading } from '@assets/svg'
-import React, { FC } from 'react'
-import css from '@styles/utils/loading.module.css'
+import { FC } from "react";
+import css from "@styles/utils/loading.module.css";
 
 type settingsType = {
-  size?: number
-}
+  size?: number;
+};
 
-const Loading: FC<settingsType> = ({ size }) => {
+export const Loading: FC<settingsType> = ({ size }) => {
   return (
     <div className={`${css.lds_ellipsis}`}>
       <div></div>
@@ -14,7 +13,5 @@ const Loading: FC<settingsType> = ({ size }) => {
       <div></div>
       <div></div>
     </div>
-  )
-}
-
-export default Loading
+  );
+};
