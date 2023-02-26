@@ -1,34 +1,25 @@
-import { useAuthorization, useForm } from '@hooks/index'
-import { SvgLoading } from '@assets/svg/index'
-import { Link, Navigate } from 'react-router-dom'
-import css from '@styles/signIn_signUp/form.module.css'
-import Loading from '@components/utils/loading'
-import { useState } from 'react'
-import { SvgEmail } from '@assets/svg/@'
-import { SvgPass } from '@assets/svg/Pass'
-import { SvgView } from '@assets/svg/view'
-import { SvgOffView } from '@assets/svg/offView'
+import { useAuthorization, useForm } from "@hooks/index";
+import { Link, Navigate } from "react-router-dom";
+import css from "@styles/signIn_signUp/form.module.css";
+import { Loading } from "@components/utils/loading";
+import { useState } from "react";
+import { SvgEmail } from "@assets/svg/@";
+import { SvgPass } from "@assets/svg/Pass";
+import { SvgView } from "@assets/svg/view";
+import { SvgOffView } from "@assets/svg/offView";
 
 export const Login = () => {
-  const [viewPass, setViewPass] = useState<boolean>(false)
-  const {
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    values,
-    errors,
-    errorValues,
-    loading,
-  } = useForm('LOGIN', {
-    email: null,
-    password: null,
-  })
-  const { check } = useAuthorization()
+  const [viewPass, setViewPass] = useState<boolean>(false);
+  const { handleChange, handleSubmit, errorValues, loading } = useForm("LOGIN", {
+    email: undefined,
+    password: undefined,
+  });
+  const { check } = useAuthorization();
 
   return (
     <div className={`container ${css.container}`}>
       {check === true ? (
-        <Navigate to={'/chat'} />
+        <Navigate to={"/chat"} />
       ) : check === undefined || loading ? (
         <Loading />
       ) : (
@@ -36,7 +27,7 @@ export const Login = () => {
           <h3>Login</h3>
           <form className={`${css.form}`} onSubmit={handleSubmit}>
             <label className={`${css.label_email}`}>
-              <input name='email' onChange={handleChange} placeholder='Email' />
+              <input autoFocus name="email" onChange={handleChange} placeholder="Email" />
               <em className={`${css.name}`}>Email</em>
               <i aria-checked={true}>
                 <SvgEmail />
@@ -44,10 +35,10 @@ export const Login = () => {
             </label>
             <label className={`${css.label_password}`}>
               <input
-                type={viewPass ? 'text' : 'password'}
-                name='password'
+                type={viewPass ? "text" : "password"}
+                name="password"
                 onChange={handleChange}
-                placeholder='Password'
+                placeholder="Password"
               />
               <em className={`${css.name}`}>Password</em>
               <i>
@@ -58,23 +49,18 @@ export const Login = () => {
               </span>
             </label>
             <button
-              type='submit'
-              disabled={
-                (errorValues.email && errorValues.password) !== 'success'
-              }
+              type="submit"
+              disabled={(errorValues.email && errorValues.password) !== "success"}
             >
               SignIn
             </button>
-            {errors.map((err, index) => {
-              return <span key={index + 1}>{err.message}</span>
-            })}
           </form>
           <span>
             <em>todavia no estas registrado?</em>
-            <Link to={'/register'}>SignUp</Link>
+            <Link to={"/register"}>SignUp</Link>
           </span>
         </section>
       )}
     </div>
-  )
-}
+  );
+};
