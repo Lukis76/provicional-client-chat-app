@@ -87,6 +87,10 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+small {
+  font-size: .6rem;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -108,3 +112,23 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
 }
+
+
+
+/* Custom */
+.err {
+  outline-color: red !important;
+}
+
+.err ~ p * {
+  color: red;
+} 
+
+.success {
+  outline-color: greenyellow !important;
+}
+
+.success ~ P * {
+  color: green;
+}
+
