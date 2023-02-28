@@ -6,7 +6,7 @@ import { authUserContext } from "@context/index";
 import { useParams } from "react-router-dom";
 import css from "@styles/chat/navbar/room.module.css";
 import { formatUsersName } from "@components/utils/formatUserName";
-import { GlowMenu } from "./glowMenu";
+import { GlowMenu, OptionsGlowMenu } from "./glowMenu";
 
 type RoomType = {
   conversation: ConversationFE;
@@ -39,7 +39,7 @@ export const Room: FC<RoomType> = ({ conversation, setEditingConversation, setIs
     }
   };
   //--------------------------------------------------------------
-  const optionsMenu = [
+  const optionsMenu: OptionsGlowMenu = [
     {
       name: "Edit",
       action: () => {
@@ -67,7 +67,7 @@ export const Room: FC<RoomType> = ({ conversation, setEditingConversation, setIs
     >
       {/* --------------------------------------------------------------- */}
       {contextMenu && (
-        <GlowMenu style={css.positionMenuUser} options={optionsMenu} view={setContextMenu} />
+        <GlowMenu style={css.positionContextMenu} options={optionsMenu} view={setContextMenu} />
       )}
       {/* --------------------------------------------------------------- */}
       <div className={`${css.info}`}>
