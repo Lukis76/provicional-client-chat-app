@@ -110,3 +110,8 @@ white-space: nowrap;
     transform: translateX(0%);
   }
 }
+
+.positionContextMenu {
+  top: .2rem;
+  left: 5.5rem;
+}
