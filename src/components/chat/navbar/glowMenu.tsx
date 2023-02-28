@@ -1,14 +1,14 @@
 import css from "@styles/chat/navbar/glowMenu.module.css";
 import { Dispatch, FC, SetStateAction } from "react";
 
-type selectType = {
+export type OptionsGlowMenu = Array<{
   name: string;
   action: () => void;
-};
+}>;
 
 type GlowMenuType = {
   style: string;
-  options: Array<selectType>;
+  options: OptionsGlowMenu;
   view: Dispatch<SetStateAction<boolean>>;
 };
 
